@@ -1,5 +1,6 @@
 package com.skilldistillery.books.entities;
 
+import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.Column;
@@ -7,6 +8,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Author {
@@ -29,6 +31,9 @@ public class Author {
 	private String imageUrl;
 	
 	private int enabled;
+	
+	@OneToMany(mappedBy="author")
+	private List<Book> books;
 
 	public Author() {
 		super();
@@ -89,6 +94,14 @@ public class Author {
 
 	public void setEnabled(int enabled) {
 		this.enabled = enabled;
+	}
+
+	public List<Book> getBooks() {
+		return books;
+	}
+
+	public void setBooks(List<Book> books) {
+		this.books = books;
 	}
 
 	@Override

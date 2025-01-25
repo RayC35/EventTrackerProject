@@ -46,5 +46,13 @@ class ReviewTest {
 		assertNotNull(review);
 		assertEquals(1, review.getId());
 	}
+	
+	@Test
+	void test_Review_Book_OneToOne_mapping() {
+		assertNotNull(review);
+		assertNotNull(review.getBook());
+		assertEquals(1878, review.getBook().getYearPublished());
+		
+	}
 
 }

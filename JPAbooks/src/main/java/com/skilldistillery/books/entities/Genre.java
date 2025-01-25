@@ -1,11 +1,13 @@
 package com.skilldistillery.books.entities;
 
+import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Genre {
@@ -15,6 +17,9 @@ public class Genre {
 	private int id;
 	
 	private String name;
+	
+	@OneToMany(mappedBy="genre")
+	private List<Book> books;
 
 	public Genre() {
 		super();
@@ -34,6 +39,14 @@ public class Genre {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public List<Book> getBooks() {
+		return books;
+	}
+
+	public void setBooks(List<Book> books) {
+		this.books = books;
 	}
 
 	@Override

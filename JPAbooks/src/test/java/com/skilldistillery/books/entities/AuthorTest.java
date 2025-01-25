@@ -46,5 +46,11 @@ class AuthorTest {
 		assertNotNull(author);
 		assertEquals("John Steinbeck", author.getName());
 	}
+	
+	@Test
+	void test_Author_Book_OneToMany_mapping() {
+		assertNotNull(author);
+		assertNotNull(author.getBooks());
+	}
 
 }

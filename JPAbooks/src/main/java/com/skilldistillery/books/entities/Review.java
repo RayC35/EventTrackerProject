@@ -8,6 +8,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 
 @Entity
 public class Review {
@@ -23,6 +25,10 @@ public class Review {
 	
 	@Column(name="review_date")
 	private LocalDateTime reviewDate;
+	
+	@OneToOne
+	@JoinColumn(name="book_id")
+	private Book book;
 
 	public Review() {
 		super();
@@ -58,6 +64,14 @@ public class Review {
 
 	public void setReviewDate(LocalDateTime reviewDate) {
 		this.reviewDate = reviewDate;
+	}
+
+	public Book getBook() {
+		return book;
+	}
+
+	public void setBook(Book book) {
+		this.book = book;
 	}
 
 	@Override

@@ -45,5 +45,25 @@ class BookTest {
 		assertNotNull(book);
 		assertEquals("The Winter of Our Discontent", book.getTitle());
 	}
+	@Test
+	void test_Book_Review_OneToOne_mapping() {
+		assertNotNull(book);
+		assertNotNull(book.getReview());
+		assertEquals(1, book.getReview().getId());
+	}
+	
+	@Test
+	void test_Book_Author_ManyToOne_mapping() {
+		assertNotNull(book);
+		assertNotNull(book.getAuthor());
+		assertEquals("John Steinbeck", book.getAuthor().getName());
+	}
 
+	@Test
+	void test_Book_Genre_ManyToOne_mapping() {
+		assertNotNull(book);
+		assertNotNull(book.getGenre());
+		assertEquals("Fiction", book.getGenre().getName());
+	}
+	
 }

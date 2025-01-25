@@ -45,5 +45,11 @@ class GenreTest {
 		assertNotNull(genre);
 		assertEquals("Fiction", genre.getName());
 	}
+	
+	@Test
+	void test_Genre_Book_OneToMany_mapping() {
+		assertNotNull(genre);
+		assertNotNull(genre.getBooks());
+	}
 
 }
