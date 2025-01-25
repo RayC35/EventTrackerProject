@@ -1,6 +1,7 @@
 package com.skilldistillery.books.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,8 +22,13 @@ public class BookServiceImpl implements BookService {
 
 	@Override
 	public Book findById(int bookId) {
-		// TODO Auto-generated method stub
-		return null;
+		Optional<Book> bookOpt = bookRepo.findById(bookId);
+		Book book = null;
+		if(bookOpt.isPresent()) {
+			book = bookOpt.get();
+		}
+		return book; 
+		
 	}
 
 	@Override
