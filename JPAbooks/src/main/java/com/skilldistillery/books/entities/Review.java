@@ -20,6 +20,9 @@ public class Review {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
+	@Column(name= "book_id", insertable=false, updatable=false)
+	private Integer bookId;
+	
 	@Column(name="review_text")
 	private String reviewText;
 	
@@ -36,6 +39,19 @@ public class Review {
 	public Review() {
 		super();
 	}
+	
+
+	public Integer getBookId() {
+		return bookId;
+	}
+
+
+
+	public void setBookId(Integer bookId) {
+		this.bookId = bookId;
+	}
+
+
 
 	public int getId() {
 		return id;

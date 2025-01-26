@@ -45,6 +45,7 @@ class ReviewTest {
 	void test_Review_Entity_Mapping() {
 		assertNotNull(review);
 		assertEquals(1, review.getId());
+		assertEquals(1, review.getBookId());
 	}
 	
 	@Test
