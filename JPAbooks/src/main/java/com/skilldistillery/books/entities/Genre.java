@@ -3,6 +3,8 @@ package com.skilldistillery.books.entities;
 import java.util.List;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -18,6 +20,7 @@ public class Genre {
 	
 	private String name;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy="genre")
 	private List<Book> books;
 

@@ -3,6 +3,8 @@ package com.skilldistillery.books.entities;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -26,6 +28,7 @@ public class Review {
 	@Column(name="review_date")
 	private LocalDateTime reviewDate;
 	
+	@JsonIgnore
 	@OneToOne
 	@JoinColumn(name="book_id")
 	private Book book;
