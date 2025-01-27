@@ -7,13 +7,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.skilldistillery.books.entities.Book;
+import com.skilldistillery.books.repositories.AuthorRepository;
 import com.skilldistillery.books.repositories.BookRepository;
+import com.skilldistillery.books.repositories.GenreRepository;
 
 @Service
 public class BookServiceImpl implements BookService {
 
 	@Autowired
 	private BookRepository bookRepo;
+	@Autowired
+	private AuthorRepository authorRepo;
+	@Autowired
+	private GenreRepository genreRepo;
 	
 	@Override
 	public List<Book> findAll() {
@@ -70,5 +76,24 @@ public class BookServiceImpl implements BookService {
 			deleted = true;
 		return deleted;
 	}
+
+	@Override
+	public List<Book> findByAuthorId(int authorId) {
+		List<Book> foundBooks = null;
+		if(authorRepo.existsById(authorId)) {
+			foundBooks = bookRepo.findByAuthorId(authorId);
+		}
+		return foundBooks;
+	}
+
+	@Override
+	public List<Book> findByGenreId(int genreId) {
+		List<Book> foundBooks = null;
+		if(genreRepo.existsById(genreId)) {
+			foundBooks = bookRepo.findByGenreId(genreId);
+		}
+		return foundBooks;
+	}
+	
 
 }

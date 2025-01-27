@@ -89,6 +89,17 @@ public class BookController {
 			e.printStackTrace();
 			res.setStatus(HttpServletResponse.SC_NOT_FOUND);
 		}
-		
+	}
+	//WORKS!
+	@GetMapping("authors/{authorId}/books")
+	public List<Book> findBooksByAuthor(@PathVariable("authorId") int authorId) {
+		List<Book> foundBooks = bookService.findByAuthorId(authorId);
+		return foundBooks;
+	}
+	//WORKS!
+	@GetMapping("genres/{genreId}/books")
+	public List<Book> findBooksByGenre(@PathVariable("genreId") int genreId) {
+		List<Book> foundBooks = bookService.findByGenreId(genreId);
+		return foundBooks;
 	}
 }

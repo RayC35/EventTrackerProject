@@ -11,5 +11,8 @@ public interface BookService {
 	Book update(int bookId, Book book);
 	boolean deleteById(int bookId);
 	
+	List<Book> findByAuthorId(int authorId);
+	List<Book> findByGenreId(int GenreId);
+	
 
 }
