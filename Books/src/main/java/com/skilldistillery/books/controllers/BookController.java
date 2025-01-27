@@ -2,6 +2,7 @@ package com.skilldistillery.books.controllers;
 
 import java.util.List;
 
+import org.hibernate.boot.model.source.spi.HibernateTypeSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,30 +33,62 @@ public class BookController {
 	
 	//WORKS!
 	@GetMapping("books/{bookId}")
-	public Book findBook(@PathVariable("bookId") int bookId) {
+	public Book findBook(@PathVariable("bookId") int bookId, HttpServletResponse res) {
 		Book foundBook = bookService.findById(bookId);
+		if(foundBook == null) {
+			res.setStatus(HttpServletResponse.SC_NOT_FOUND);
+		}
 		return foundBook;
 	}
 	
 	//WORKS!
 	@PostMapping("books")
-	public Book createBook(@RequestBody Book newBook) {
-		return bookService.create(newBook);
+	public Book createBook(@RequestBody Book newBook, HttpServletResponse res) {
+		try {
+			newBook = bookService.create(newBook);
+			if(newBook != null) {
+			res.setStatus(HttpServletResponse.SC_CREATED);
+			} else {
+				res.setStatus(HttpServletResponse.SC_NOT_FOUND);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			res.setStatus(HttpServletResponse.SC_NOT_FOUND);
+		}
+		return newBook;
 	}
 	
 	//WORKS!
 	@PutMapping("books/{bookId}")
 	public Book updateBook(@PathVariable("bookId") int bookId, @RequestBody Book revisedBook, HttpServletResponse res) {
-		revisedBook = bookService.update(bookId, revisedBook);
-		if(revisedBook == null) {
-			res.setStatus(HttpServletResponse.SC_NOT_FOUND);//404
+		try {
+			revisedBook = bookService.update(bookId, revisedBook);
+			if(revisedBook == null) {
+				res.setStatus(HttpServletResponse.SC_NOT_FOUND);//404
+			} else {
+				res.setStatus(HttpServletResponse.SC_OK);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			res.setStatus(HttpServletResponse.SC_NOT_FOUND);
 		}
 		return revisedBook;
 	}
 
 	//WORKS!
 	@DeleteMapping("books/{bookId}")
-	public void deleteBook(@PathVariable("bookId") int bookId) {
-		boolean wasDeleted = bookService.deleteById(bookId);
+	public void deleteBook(@PathVariable("bookId") int bookId, HttpServletResponse res) {
+		try {
+//			boolean wasDeleted = bookService.deleteById(bookId);
+			if(bookService.deleteById(bookId)) {
+			res.setStatus(HttpServletResponse.SC_NO_CONTENT);
+			} else {
+				res.setStatus(HttpServletResponse.SC_NOT_FOUND);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			res.setStatus(HttpServletResponse.SC_NOT_FOUND);
+		}
+		
 	}
 }

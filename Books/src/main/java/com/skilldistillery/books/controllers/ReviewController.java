@@ -18,13 +18,13 @@ public class ReviewController {
 	@Autowired
 	private ReviewService reviewService;
 	
-	//ALREADY IN THE BOOK CONTROLLER, UNNECESSARY HERE
-//	@GetMapping("books/{bookId}")
-//	public Review findReview(@PathVariable("bookId") int bookId) {
-//		return reviewService.findReviewForBook(bookId);
-//	}
+//	ALREADY IN THE BOOK CONTROLLER, UNNECESSARY HERE
+	@GetMapping("books/{bookId}/review")
+	public Review findReview(@PathVariable("bookId") int bookId) {
+		return reviewService.findReviewForBook(bookId);
+	}
 	
-	@PostMapping("books/{bookId}")
+	@PostMapping("books/{bookId}/review")
 	public Review createReview(@PathVariable("bookId") int bookId, @RequestBody Review newReview) {
 		return reviewService.createForBook(bookId, newReview);
 	}

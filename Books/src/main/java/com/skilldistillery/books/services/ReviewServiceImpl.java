@@ -18,21 +18,22 @@ public class ReviewServiceImpl implements ReviewService {
 	@Autowired
 	private BookRepository bookRepo;
 
-//	@Override
-//	public Review findReviewForBook(int bookId) {
-//		if(!bookRepo.existsById(bookId)) {
-//			return null;
-//		}
-//		return reviewRepo.findReviewByBookId(bookId);
-//	}
+	@Override
+	public Review findReviewForBook(int bookId) {
+		if(!bookRepo.existsById(bookId)) {
+			return null;
+		}
+		return reviewRepo.findReviewByBookId(bookId);
+	}
 
 	@Override
 	public Review createForBook(int bookId, Review newReview) {
 		Optional<Book> bookOpt = bookRepo.findById(bookId);
 		if(bookOpt.isPresent()) {
-//			newReview.setBook(bookOpt.get());
+			newReview.setBook(bookOpt.get());
+			return reviewRepo.saveAndFlush(newReview);
 		}
-		return reviewRepo.saveAndFlush(newReview);
+		return null;
 	}
 
 	@Override
