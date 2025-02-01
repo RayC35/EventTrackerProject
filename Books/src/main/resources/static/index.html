@@ -11,9 +11,9 @@
 	
 	<main class="container">
 	
-	<h1>Hello</h1>
+	<h1>Text Here</h1>
 	
-	<div id="bookListDiv"></div>
+	<div id="bookListDiv"></div><br>
 	<table>
 		<thead>
 			<tr>
@@ -24,8 +24,18 @@
 		<tbody id="bookListTbody">
 		</tbody>
 	</table>
-	<div id="bookDetailsDiv"></div>
+	<div id="bookDetailsDiv"></div><br>
 	<div id="addBookDiv"></div>
+		<h2>Add New Book To The List: </h2>
+		<form name="addBookForm">
+  		Title:<input type="text" name="title"><br>
+  		Author:<input type="text" name="author"><br>
+  		Genre:<input type="text" name="genre"><br>
+  		Year Published: <input type="number" name="yearPublished"><br>
+  		Synopsis: <textarea name="synopsis"></textarea><br>
+  		Page Count:<input type="number" name="pages">
+  		<button name="addBook">Add Book</button>
+  </form>
 	
 	
 	</main>

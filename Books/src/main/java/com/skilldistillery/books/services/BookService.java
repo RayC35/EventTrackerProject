@@ -12,7 +12,7 @@ public interface BookService {
 	boolean deleteById(int bookId);
 	
 	List<Book> findByAuthorId(int authorId);
-	List<Book> findByGenreId(int GenreId);
+	List<Book> findByGenreId(int genreId);
 	
 
 }

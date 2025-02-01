@@ -44,6 +44,7 @@ public class BookController {
 	//WORKS!
 	@PostMapping("books")
 	public Book createBook(@RequestBody Book newBook, HttpServletResponse res) {
+		System.out.println(newBook.getAuthor());
 		try {
 			newBook = bookService.create(newBook);
 			if(newBook != null) {

@@ -62,4 +62,10 @@ public class AuthorServiceImpl implements AuthorService {
 //		}
 		return deleted;
 	}
+
+	@Override
+	public Author findByName(String name) {
+		return authorRepo.findByAuthorName(name);
+		
+	}
 }

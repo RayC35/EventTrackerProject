@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.skilldistillery.books.entities.Author;
 import com.skilldistillery.books.entities.Book;
 import com.skilldistillery.books.repositories.AuthorRepository;
 import com.skilldistillery.books.repositories.BookRepository;
@@ -39,6 +40,8 @@ public class BookServiceImpl implements BookService {
 
 	@Override
 	public Book create(Book newBook) {
+		String authorName = newBook.getAuthor().getName();
+		Author managedAuthor = authorRepo.findByAuthorName(authorName);
 		return bookRepo.saveAndFlush(newBook);
 	}
 

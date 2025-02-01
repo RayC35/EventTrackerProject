@@ -11,5 +11,7 @@ public interface AuthorService {
 	Author update(int authorId, Author author);
 	boolean deleteById(int authorId);
 	
+	Author findByName(String name);
+	
 
 }
