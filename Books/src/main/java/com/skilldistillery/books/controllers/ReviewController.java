@@ -18,7 +18,7 @@ public class ReviewController {
 	@Autowired
 	private ReviewService reviewService;
 	
-//	ALREADY IN THE BOOK CONTROLLER, UNNECESSARY HERE
+//	ALREADY IN THE BOOK CONTROLLER, UNNECESSARY HERE?
 	@GetMapping("books/{bookId}/review")
 	public Review findReview(@PathVariable("bookId") int bookId) {
 		return reviewService.findReviewForBook(bookId);
