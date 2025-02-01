@@ -82,13 +82,31 @@ function displayBookList(bookList) {
 		author.textContent = book.author.name;
 		trow.appendChild(author);	
 		
-		let edit = document.createElement();
+		let edit = document.createElement('td');
+		trow.appendChild(edit);
+		let editButton = document.createElement('button');
+		editButton.textContent = 'Edit Info';
+		edit.appendChild(editButton);
 		
-		trow.bookId = book.id;
+		let del = document.createElement('td');
+		trow.appendChild(del);
+		let deleteButton = document.createElement('button');
+		deleteButton.textContent = 'Delete Book';
+		edit.appendChild(deleteButton);
 		
-		trow.addEventListener('click', function(e){
-		//console.log(e.target.parentElement);
-		bookId = e.target.parentElement.bookId;
+		editButton.bookId = book.id;
+		editButton.addEventListener('click', function(e){
+			console.log(e.target.bookId);
+		});
+		
+		deleteButton.bookId = book.id;
+		deleteButton.addEventListener('click', function(e){
+			console.log(e.target.bookId);
+		});
+		
+		title.bookId = book.id;
+		title.addEventListener('click', function(e) {
+		bookId = e.target.bookId;
 		getBook(bookId);
 		});
 	}
