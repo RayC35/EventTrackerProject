@@ -15,7 +15,7 @@ function init() {
 		let newBook = {
 			title : addBookForm.title.value,
 			author :{
-				id: 1,
+				//id: 1,
 				name: addBookForm.author.value  
 			},
 			genre : {
@@ -81,6 +81,8 @@ function displayBookList(bookList) {
 		let author = document.createElement('td');
 		author.textContent = book.author.name;
 		trow.appendChild(author);	
+		
+		let edit = document.createElement();
 		
 		trow.bookId = book.id;
 		

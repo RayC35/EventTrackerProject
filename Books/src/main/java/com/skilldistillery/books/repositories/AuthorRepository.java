@@ -6,5 +6,5 @@ import com.skilldistillery.books.entities.Author;
 
 public interface AuthorRepository extends JpaRepository<Author, Integer> {
 
-	Author findByAuthorName(String name);
+	Author findByName(String name);
 }

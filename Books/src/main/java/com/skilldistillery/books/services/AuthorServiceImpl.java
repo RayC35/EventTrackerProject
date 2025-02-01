@@ -65,7 +65,7 @@ public class AuthorServiceImpl implements AuthorService {
 
 	@Override
 	public Author findByName(String name) {
-		return authorRepo.findByAuthorName(name);
+		return authorRepo.findByName(name);
 		
 	}
 }

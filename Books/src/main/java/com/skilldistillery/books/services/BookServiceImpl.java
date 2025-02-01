@@ -41,8 +41,14 @@ public class BookServiceImpl implements BookService {
 	@Override
 	public Book create(Book newBook) {
 		String authorName = newBook.getAuthor().getName();
-		Author managedAuthor = authorRepo.findByAuthorName(authorName);
-		return bookRepo.saveAndFlush(newBook);
+		Author managedAuthor = authorRepo.findByName(authorName);
+		if(managedAuthor == null) {
+			authorRepo.saveAndFlush(newBook.getAuthor());
+		} else {
+			newBook.setAuthor(managedAuthor);
+		}
+		bookRepo.saveAndFlush(newBook);
+		return newBook;
 	}
 
 	//REMEMBER TO SAVE AND FLUSH!!
