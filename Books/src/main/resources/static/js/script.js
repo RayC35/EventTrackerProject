@@ -1,7 +1,10 @@
 console.log('script.js loaded');
 
+//window.addEventListener('load', hideAddForm);
+
 window.addEventListener('load', function(e){
 	console.log('Document loaded.');
+	//hideAddForm();
 	init();	
 });
 
@@ -31,7 +34,17 @@ function init() {
 		addBookForm.reset();
 		
 	});
-}
+	
+	//HOW TO TARGET EDIT BUTTON AND LAUNCH EDIT FORM, HIDE EVERYTHING ELSE
+	//document.update.addEventListener('click', function(e){
+	let edit = document.querySelector("button");
+	edit.addEventListener('click', function(e){
+		
+	//document.tableBody.dataRow.edit.editButton.addEventListener('click', function(e) {
+		e.preventDefault();
+		hideList();
+	//})
+});
 
 function loadBookList(){
 	let xhr = new XMLHttpRequest();
@@ -45,7 +58,7 @@ function loadBookList(){
 				let bookList = JSON.parse(xhr.responseText);
 				//console.log(bookList);
 				displayBookList(JSON.parse(xhr.responseText))
-				
+
 			} else {
 				console.error(xhr.status);
 				console.error("No books found.");
@@ -60,10 +73,12 @@ function loadBookList(){
 function displayBookList(bookList) {
 	//DOM to build table rows, append to tbody
 	let tbody = document.getElementById('bookListTbody');
+	tbody.setAttribute('name','tableBody');
 	tbody.textContent = '';
 	
 	for(let book of bookList){
 		let trow = document.createElement('tr');
+		trow.setAttribute('name','dataRow');
 		tbody.appendChild(trow);
 		
 		/*let td = document.createElement('td')
@@ -83,8 +98,10 @@ function displayBookList(bookList) {
 		trow.appendChild(author);	
 		
 		let edit = document.createElement('td');
+		edit.setAttribute('name','edit');
 		trow.appendChild(edit);
 		let editButton = document.createElement('button');
+		editButton.setAttribute('name','editButton');
 		editButton.textContent = 'Edit Info';
 		edit.appendChild(editButton);
 		
@@ -104,13 +121,13 @@ function displayBookList(bookList) {
 			console.log(e.target.bookId);
 		});
 		
+		//ASSIGNS ID TO TITLE, CLICKING TITLE FIRES getBook();
 		title.bookId = book.id;
 		title.addEventListener('click', function(e) {
 		bookId = e.target.bookId;
 		getBook(bookId);
 		});
 	}
-	
 };
 
 
@@ -183,12 +200,31 @@ function showList() {
 		detailsDiv.style.display = 'none';
 }
 
+function hideList() {
+	let booksDiv = document.getElementById('bookListDiv');
+	let detailsDiv = document.getElementById('bookDetailsDiv')
+	booksDiv.style.display = 'none';
+	detailsDiv.style.display = 'none';
+}
+
 function showDetails() {
 	let booksDiv = document.getElementById('bookListDiv');
 	let detailsDiv = document.getElementById('bookDetailsDiv');
 	booksDiv.style.display = 'none';
 	detailsDiv.style.display = 'block';
 }
+
+function hideDetails() {
+	let booksDiv = document.getElementById('bookListDiv');
+	let detailsDiv = document.getElementById('bookDetailsDiv')
+	booksDiv.style.display = 'none';
+	detailsDiv.style.display = 'none';
+	}
+	
+function hideAddForm() {
+	let addDiv = document.getElementById('addBookDiv');
+	addDiv.style.display = 'none';
+}	
 
  function createBook(newBook) {
 	
@@ -215,3 +251,5 @@ function showDetails() {
 			
 	xhr.send(newBookJson);	
 };	
+
+}
