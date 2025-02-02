@@ -63,9 +63,21 @@ public class BookServiceImpl implements BookService {
 		if (bookOpt.isPresent()) {
 			bookToUpdate = bookOpt.get();
 		}
+		String genreType = book.getGenre().getName();
+		Genre managedGenre = genreRepo.findByName(genreType);
+		bookToUpdate.setGenre(managedGenre);
+		
+		String authorName = book.getAuthor().getName();
+		Author managedAuthor = authorRepo.findByName(authorName);
+		if (managedAuthor == null) {
+			managedAuthor = authorRepo.saveAndFlush(book.getAuthor());
+		}
+		bookToUpdate.setAuthor(managedAuthor);
+		
+		
 		bookToUpdate.setTitle(book.getTitle());
-		bookToUpdate.setAuthor(book.getAuthor());
-		bookToUpdate.setGenre(book.getGenre());
+//		bookToUpdate.setAuthor(book.getAuthor());
+//		bookToUpdate.setGenre(book.getGenre());
 		bookToUpdate.setYearPublished(book.getYearPublished());
 		bookToUpdate.setSynopsis(book.getSynopsis());
 		bookToUpdate.setPages(book.getPages());

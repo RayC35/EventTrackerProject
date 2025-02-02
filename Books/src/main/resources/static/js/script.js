@@ -13,6 +13,7 @@ function init() {
 	document.getElementById('addBookDiv').style.display = 'none';
 	document.getElementById('editDiv').style.display = 'none';
 	//event listeners for HTML form buttons, etc
+	//ADD FORM
 	 document.addBookForm.addBook.addEventListener('click', function(e){
 		e.preventDefault();
 		let newBook = {
@@ -31,9 +32,31 @@ function init() {
 		console.log(newBook);
 		createBook(newBook);
 		addBookForm.reset();
-		
 	}); 
-	
+	//EDIT FORM
+	document.editBookForm.submitEdit.addEventListener('click', function(e){
+		e.preventDefault();
+		
+		let form = document.editBookForm;
+		let bookId = form.dataset.bookId;
+		
+		let editedBook = {
+			title : form.title.value,
+			author : {
+				name: form.author.value,
+			},
+			genre : {
+				name : form.genre.value,
+			},
+			yearPublished : form.yearPublished.value,
+			synopsis : form.synopsis.value,
+			pages : form.pages.value,
+		};
+		console.log('Updating book with ID: ' + bookId, editedBook);
+		editBook(bookId, editedBook);
+		form.reset();
+		toggleEditForm();
+	});
 	//HOW TO TARGET EDIT BUTTON AND LAUNCH EDIT FORM, HIDE EVERYTHING ELSE
 	//document.update.addEventListener('click', function(e){
 	//let edit = document.querySelector("button");
@@ -111,8 +134,10 @@ function displayBookList(bookList) {
 		edit.appendChild(deleteButton);
 		
 		editButton.bookId = book.id;
-		editButton.addEventListener('click', toggleEditForm, function(e){
+		editButton.addEventListener('click',function(e){
 			console.log(e.target.bookId);
+			populateEditForm(book);
+			toggleEditForm();
 		});
 		
 		deleteButton.bookId = book.id;
@@ -233,13 +258,24 @@ function toggleAddForm() {
 function toggleEditForm() {
 		let formDiv = document.getElementById('editDiv');
 		let currentDisplayStatus = formDiv.style.display;
-		console.log(formDiv.style);
+		//console.log(formDiv.style);
 		if (currentDisplayStatus === 'block') {
 			formDiv.style.display = 'none';
 		} else if (currentDisplayStatus === 'none') {
 			formDiv.style.display = 'block';
 		}
 	}
+function populateEditForm(book) {
+	let form = document.editBookForm;
+	form.title.value = book.title;
+	form.author.value = book.author.name;
+	form.genre.value = book.genre.name;
+	form.yearPublished.value = book.yearPublished;
+	form.synopsis.value = book.synopsis;
+	form.pages.value = book.pages;
+	
+	form.dataset.bookId = book.id;
+}
 
 
  function createBook(newBook) {
@@ -267,5 +303,28 @@ function toggleEditForm() {
 			
 	xhr.send(newBookJson);	
 };	
+
+function editBook(bookId, editedBook) {
+	let xhr = new XMLHttpRequest();
+	xhr.open('PUT','api/books/' + bookId);
+	
+	xhr.onreadystatechange = function() {
+			if(xhr.readyState === xhr.DONE) {
+				if(xhr.status === 200 || xhr.status ===201) {
+						console.log('Book updated: ', xhr.responseText);
+					//let updatedBook = JSON.parse(xhr.responseText);
+						loadBookList();
+					} else {
+						console.error("PUT request failed.");
+						console.error(xhr.status + ': ' + xhr.responseText);
+					}
+				}
+			};
+	xhr.setRequestHeader("Content-type", "application/json"); // Specify JSON request body	
+	
+	let updatedBookJson = JSON.stringify(editedBook);
+	
+	xhr.send(updatedBookJson);		
+};
 
 }
