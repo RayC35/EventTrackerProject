@@ -13,21 +13,22 @@
 	
 	<h1>Text Here</h1>
 	
-	<div id="bookListDiv"></div><br>
-	<table>
-		<thead>
-			<tr>
-				<th>Title</th>
-				<th>Author</th>
-				<th></th>
-				<th></th>
-			</tr>
-		</thead>
-		<tbody id="bookListTbody">
-		</tbody>
+	<div id="bookListDiv">
+		<table>
+			<thead>
+				<tr>
+					<th>Title</th>
+					<th>Author</th>
+					<th></th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody id="bookListTbody"></tbody>
 	</table>
+		<button id="toggleForm">Add Book</button>
+	</div><br>
 	<div id="bookDetailsDiv"></div><br>
-	<div id="addBookDiv"></div>
+	<div id="addBookDiv">
 		<h2>Add New Book To The List: </h2>
 		<form name="addBookForm">
   		Title:<input type="text" name="title"><br>
@@ -38,6 +39,7 @@
   		Page Count:<input type="number" name="pages">
   		<button name="addBook">Add Book</button>
   </form>
+	</div>
   	<div id="editDiv">
   		<h2>Edit Book Details</h2>
   		<form name="editBookForm">

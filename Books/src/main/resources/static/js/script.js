@@ -1,19 +1,19 @@
 console.log('script.js loaded');
 
-//window.addEventListener('load', hideAddForm);
 
 window.addEventListener('load', function(e){
 	console.log('Document loaded.');
-	//hideAddForm();
 	init();	
 });
 
 function init() {
 	console.log('In init()');
 	loadBookList();
-	
+	document.getElementById('toggleForm').addEventListener('click',toggleForm);
+	document.getElementById('addBookDiv').style.display = 'none';
+	document.getElementById('editDiv').style.display = 'none';
 	//event listeners for HTML form buttons, etc
-	document.addBookForm.addBook.addEventListener('click', function(e){
+	/* document.addBookForm.addBook.addEventListener('click', function(e){
 		e.preventDefault();
 		let newBook = {
 			title : addBookForm.title.value,
@@ -33,7 +33,7 @@ function init() {
 		createBook(newBook);
 		addBookForm.reset();
 		
-	});
+	}); */
 	
 	//HOW TO TARGET EDIT BUTTON AND LAUNCH EDIT FORM, HIDE EVERYTHING ELSE
 	//document.update.addEventListener('click', function(e){
@@ -112,7 +112,7 @@ function displayBookList(bookList) {
 		edit.appendChild(deleteButton);
 		
 		editButton.bookId = book.id;
-		editButton.addEventListener('click', function(e){
+		editButton.addEventListener('click', toggleEditForm, function(e){
 			console.log(e.target.bookId);
 		});
 		
@@ -221,10 +221,27 @@ function hideDetails() {
 	detailsDiv.style.display = 'none';
 	}
 	
-function hideAddForm() {
-	let addDiv = document.getElementById('addBookDiv');
-	addDiv.style.display = 'none';
-}	
+function toggleForm() {
+		let formDiv = document.getElementById('addBookDiv');
+		let currentDisplayStatus = formDiv.style.display;
+		console.log(formDiv.style);
+		if (currentDisplayStatus === 'block') {
+			formDiv.style.display = 'none';
+		} else if (currentDisplayStatus === 'none') {
+			formDiv.style.display = 'block';
+		}
+	}
+function toggleEditForm() {
+		let formDiv = document.getElementById('editDiv');
+		let currentDisplayStatus = formDiv.style.display;
+		console.log(formDiv.style);
+		if (currentDisplayStatus === 'block') {
+			formDiv.style.display = 'none';
+		} else if (currentDisplayStatus === 'none') {
+			formDiv.style.display = 'block';
+		}
+	}
+
 
  function createBook(newBook) {
 	
