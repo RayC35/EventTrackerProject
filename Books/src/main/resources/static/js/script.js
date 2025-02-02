@@ -57,16 +57,10 @@ function init() {
 		form.reset();
 		toggleEditForm();
 	});
-	//HOW TO TARGET EDIT BUTTON AND LAUNCH EDIT FORM, HIDE EVERYTHING ELSE
-	//document.update.addEventListener('click', function(e){
-	//let edit = document.querySelector("button");
-	//edit.addEventListener('click', function(e){
-		
-	//document.tableBody.dataRow.edit.editButton.addEventListener('click', function(e) {
-	//	e.preventDefault();
-	//	hideList();
-	//})
-//});
+	//DELETE BOOK
+//	document.deleteButton.addEventListener('click', function(e){
+//		e.preventDefault();
+//	})
 
 function loadBookList(){
 	let xhr = new XMLHttpRequest();
@@ -143,6 +137,14 @@ function displayBookList(bookList) {
 		deleteButton.bookId = book.id;
 		deleteButton.addEventListener('click', function(e){
 			console.log(e.target.bookId);
+			if(confirm("Are you sure you want to delete this book?")) {
+				//deleteBookConfirm(book);
+				bookId = book.id;
+				deleteBook(bookId);
+				console.log("Action confirmed.");
+			} else {
+				console.log("Action cancelled.");
+			}
 		});
 		
 		//ASSIGNS ID TO TITLE, CLICKING TITLE FIRES getBook();
@@ -327,4 +329,22 @@ function editBook(bookId, editedBook) {
 	xhr.send(updatedBookJson);		
 };
 
+function deleteBook(bookId) {
+	let xhr = new XMLHttpRequest();
+		xhr.open('DELETE','api/books/' + bookId);
+		
+		xhr.onreadystatechange = function() {
+				if(xhr.readyState === xhr.DONE) {
+					if(xhr.status === 200 || xhr.status === 204) {
+							console.log('Book deleted: ', xhr.responseText);
+						//let updatedBook = JSON.parse(xhr.responseText);
+							loadBookList();
+						} else {
+							console.error("DELETE request failed.");
+							console.error(xhr.status + ': ' + xhr.responseText);
+						}
+					}
+				};
+	xhr.send();
+};
 }
