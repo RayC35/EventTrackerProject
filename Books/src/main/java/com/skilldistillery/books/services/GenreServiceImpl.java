@@ -45,4 +45,9 @@ public class GenreServiceImpl implements GenreService {
 		deleted = true;
 		return deleted;
 	}
+
+	@Override
+	public Genre findByName(String name) {
+		return genreRepo.findByName(name);
+	}
 }

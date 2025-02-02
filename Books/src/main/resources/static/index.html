@@ -25,7 +25,7 @@
 			</thead>
 			<tbody id="bookListTbody"></tbody>
 	</table>
-		<button id="toggleForm">Add Book</button>
+		<button id="toggleAddForm">Add A Book</button>
 	</div><br>
 	<div id="bookDetailsDiv"></div><br>
 	<div id="addBookDiv">
@@ -33,11 +33,15 @@
 		<form name="addBookForm">
   		Title:<input type="text" name="title"><br>
   		Author:<input type="text" name="author"><br>
-  		Genre:<input type="text" name="genre"><br>
+  		Genre:<select name="genre" id="genre">
+  				<option value="Fiction">Fiction</option>
+  				<option value="Non-Fiction">Nonfiction</option>
+  		</select>
   		Year Published: <input type="number" name="yearPublished"><br>
   		Synopsis: <textarea name="synopsis"></textarea><br>
   		Page Count:<input type="number" name="pages">
-  		<button name="addBook">Add Book</button>
+  		<button name="addBook">Add To List</button>
+  		<button name="return">Back To List</button>
   </form>
 	</div>
   	<div id="editDiv">

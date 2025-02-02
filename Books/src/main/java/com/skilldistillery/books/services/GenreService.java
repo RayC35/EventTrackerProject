@@ -11,5 +11,6 @@ public interface GenreService {
 //	Genre update(int genreId, Genre genre);
 	boolean deleteById(int genreId);
 	
+	Genre findByName(String name);
 
 }

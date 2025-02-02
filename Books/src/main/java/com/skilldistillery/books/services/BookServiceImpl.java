@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.skilldistillery.books.entities.Author;
 import com.skilldistillery.books.entities.Book;
+import com.skilldistillery.books.entities.Genre;
 import com.skilldistillery.books.repositories.AuthorRepository;
 import com.skilldistillery.books.repositories.BookRepository;
 import com.skilldistillery.books.repositories.GenreRepository;
@@ -40,6 +41,9 @@ public class BookServiceImpl implements BookService {
 
 	@Override
 	public Book create(Book newBook) {
+		String genreType = newBook.getGenre().getName();
+		Genre managedGenre = genreRepo.findByName(genreType);
+		newBook.setGenre(managedGenre);
 		String authorName = newBook.getAuthor().getName();
 		Author managedAuthor = authorRepo.findByName(authorName);
 		if(managedAuthor == null) {

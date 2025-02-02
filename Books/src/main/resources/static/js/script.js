@@ -9,11 +9,11 @@ window.addEventListener('load', function(e){
 function init() {
 	console.log('In init()');
 	loadBookList();
-	document.getElementById('toggleForm').addEventListener('click',toggleForm);
+	document.getElementById('toggleAddForm').addEventListener('click',toggleAddForm);
 	document.getElementById('addBookDiv').style.display = 'none';
 	document.getElementById('editDiv').style.display = 'none';
 	//event listeners for HTML form buttons, etc
-	/* document.addBookForm.addBook.addEventListener('click', function(e){
+	 document.addBookForm.addBook.addEventListener('click', function(e){
 		e.preventDefault();
 		let newBook = {
 			title : addBookForm.title.value,
@@ -22,7 +22,6 @@ function init() {
 				name: addBookForm.author.value  
 			},
 			genre : {
-				id: 1,
 				name: addBookForm.genre.value
 			},
 			yearPublished : addBookForm.yearPublished.value,
@@ -33,18 +32,18 @@ function init() {
 		createBook(newBook);
 		addBookForm.reset();
 		
-	}); */
+	}); 
 	
 	//HOW TO TARGET EDIT BUTTON AND LAUNCH EDIT FORM, HIDE EVERYTHING ELSE
 	//document.update.addEventListener('click', function(e){
-	let edit = document.querySelector("button");
-	edit.addEventListener('click', function(e){
+	//let edit = document.querySelector("button");
+	//edit.addEventListener('click', function(e){
 		
 	//document.tableBody.dataRow.edit.editButton.addEventListener('click', function(e) {
-		e.preventDefault();
-		hideList();
+	//	e.preventDefault();
+	//	hideList();
 	//})
-});
+//});
 
 function loadBookList(){
 	let xhr = new XMLHttpRequest();
@@ -221,7 +220,7 @@ function hideDetails() {
 	detailsDiv.style.display = 'none';
 	}
 	
-function toggleForm() {
+function toggleAddForm() {
 		let formDiv = document.getElementById('addBookDiv');
 		let currentDisplayStatus = formDiv.style.display;
 		console.log(formDiv.style);
