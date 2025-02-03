@@ -13,7 +13,7 @@ function init() {
 	document.getElementById('addBookDiv').style.display = 'none';
 	document.getElementById('editDiv').style.display = 'none';
 	//event listeners for HTML form buttons, etc
-	//ADD FORM
+  //ADD FORM
 	 document.addBookForm.addBook.addEventListener('click', function(e){
 		e.preventDefault();
 		let newBook = {
@@ -32,8 +32,9 @@ function init() {
 		console.log(newBook);
 		createBook(newBook);
 		addBookForm.reset();
+		toggleAddForm();
 	}); 
-	//EDIT FORM
+  //EDIT FORM
 	document.editBookForm.submitEdit.addEventListener('click', function(e){
 		e.preventDefault();
 		
@@ -56,11 +57,9 @@ function init() {
 		editBook(bookId, editedBook);
 		form.reset();
 		toggleEditForm();
+		loadBookList();
 	});
-	//DELETE BOOK
-//	document.deleteButton.addEventListener('click', function(e){
-//		e.preventDefault();
-//	})
+
 
 function loadBookList(){
 	let xhr = new XMLHttpRequest();
@@ -187,24 +186,39 @@ function displayBook(foundBook){
 	let detailDiv = document.getElementById('bookDetailsDiv');
 	detailDiv.textContent = '';
 	
-	let details = document.createElement('ul');
-	detailDiv.appendChild(details);
+	let title = document.createElement('h2');
+	title.textContent = foundBook.title;
+	detailDiv.appendChild(title);
 	
-	let yearPublished = document.createElement('li');
-	yearPublished.textContent = foundBook.yearPublished;
-	details.appendChild(yearPublished);
+	let author = document.createElement('h3');
+	author.textContent = foundBook.author.name;
+	detailDiv.appendChild(author);
 	
-	let synopsis = document.createElement('li');
-	synopsis.textContent = foundBook.synopsis;
-	details.appendChild(synopsis);
+	let yearPublished = document.createElement('span');
+	yearPublished.textContent = 'Published: ' + foundBook.yearPublished;
+	detailDiv.appendChild(yearPublished);
+	detailDiv.appendChild(document.createElement('br'));
 	
-	let pages = document.createElement('li');
-	pages.textContent = foundBook.pages;
-	details.appendChild(pages);
+	let pages = document.createElement('span');
+	pages.textContent = 'Page Count: ' + foundBook.pages;
+	detailDiv.appendChild(pages);
 	
-	let review = document.createElement('li');
-	review.textContent = foundBook.review.reviewText;
-	details.appendChild(review);
+	
+	let synopsis = document.createElement('h4');
+	detailDiv.appendChild(synopsis);
+	
+	let synopsisText = document.createElement('blockquote');
+	synopsisText.textContent = 'Synopsis: ' + foundBook.synopsis;
+	synopsis.appendChild(synopsisText);
+	
+	let review = document.createElement('h4');
+	detailDiv.appendChild(review);
+	
+	let reviewText = document.createElement('blockquote');
+	if (foundBook.review && foundBook.review.reviewText) {
+	    reviewText.textContent = 'Review: ' + foundBook.review.reviewText;
+	    detailDiv.appendChild(reviewText);
+	}
 	
 
 	let backButton = document.createElement('button');
@@ -250,7 +264,7 @@ function hideDetails() {
 function toggleAddForm() {
 		let formDiv = document.getElementById('addBookDiv');
 		let currentDisplayStatus = formDiv.style.display;
-		console.log(formDiv.style);
+		//console.log(formDiv.style);
 		if (currentDisplayStatus === 'block') {
 			formDiv.style.display = 'none';
 		} else if (currentDisplayStatus === 'none') {
@@ -292,6 +306,8 @@ function populateEditForm(book) {
 				console.log(xhr.responseText);
 				let createdBook = JSON.parse(xhr.responseText);
 					console.log(createdBook);
+					alert('Book Added!');
+					loadBookList();
 				} else {
 					console.error("POST request failed.");
 					console.error(xhr.status + ': ' + xhr.responseText);
@@ -315,6 +331,7 @@ function editBook(bookId, editedBook) {
 				if(xhr.status === 200 || xhr.status ===201) {
 						console.log('Book updated: ', xhr.responseText);
 					//let updatedBook = JSON.parse(xhr.responseText);
+						alert('Book Updated!');
 						loadBookList();
 					} else {
 						console.error("PUT request failed.");
