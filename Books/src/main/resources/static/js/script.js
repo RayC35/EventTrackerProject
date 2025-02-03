@@ -96,14 +96,6 @@ function displayBookList(bookList) {
 		trow.setAttribute('name','dataRow');
 		tbody.appendChild(trow);
 		
-		/*let td = document.createElement('td')
-		tbody.appendChild(td);
-		let img = document.createElement('img');
-		img.src = book.coverImageUrl;
-		//img.alt =
-		img.classList.add('w-25');
-		td.appendChild(img); */
-		
 		let title = document.createElement('td');
 		title.textContent = book.title;
 		trow.appendChild(title);
@@ -190,6 +182,11 @@ function displayBook(foundBook){
 	title.textContent = foundBook.title;
 	detailDiv.appendChild(title);
 	
+	let img = document.createElement('img')
+		img.src = foundBook.coverImageUrl;
+		img.classList.add('w-25');
+		detailDiv.appendChild(img); 
+	
 	let author = document.createElement('h3');
 	author.textContent = foundBook.author.name;
 	detailDiv.appendChild(author);
@@ -202,21 +199,24 @@ function displayBook(foundBook){
 	let pages = document.createElement('span');
 	pages.textContent = 'Page Count: ' + foundBook.pages;
 	detailDiv.appendChild(pages);
+	detailDiv.appendChild(document.createElement('br'));
 	
 	
-	let synopsis = document.createElement('h4');
-	detailDiv.appendChild(synopsis);
+	let synopsisHeader = document.createElement('h4');
+	synopsisHeader.textContent = 'Synopsis:'
+	detailDiv.appendChild(synopsisHeader);
 	
 	let synopsisText = document.createElement('blockquote');
-	synopsisText.textContent = 'Synopsis: ' + foundBook.synopsis;
-	synopsis.appendChild(synopsisText);
+	synopsisText.textContent = foundBook.synopsis;
+	detailDiv.appendChild(synopsisText);
 	
-	let review = document.createElement('h4');
-	detailDiv.appendChild(review);
+	if (foundBook.review && foundBook.review.reviewText) {
+	let reviewHeader = document.createElement('h4');
+		reviewHeader.textContent = 'Review:'
+		detailDiv.appendChild(reviewHeader);
 	
 	let reviewText = document.createElement('blockquote');
-	if (foundBook.review && foundBook.review.reviewText) {
-	    reviewText.textContent = 'Review: ' + foundBook.review.reviewText;
+	    reviewText.textContent = foundBook.review.reviewText;
 	    detailDiv.appendChild(reviewText);
 	}
 	
