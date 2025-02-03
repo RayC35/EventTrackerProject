@@ -12,7 +12,6 @@ function init() {
 	document.getElementById('toggleAddForm').addEventListener('click',toggleAddForm);
 	document.getElementById('addBookDiv').style.display = 'none';
 	document.getElementById('editDiv').style.display = 'none';
-	//event listeners for HTML form buttons, etc
   //ADD FORM
 	 document.addBookForm.addBook.addEventListener('click', function(e){
 		e.preventDefault();
@@ -168,10 +167,7 @@ function getBook(bookId) {
 		}
 	};
 	xhr.send();
-		//XHR to hit my list API endpoint
-		
 	};
-	// xhr to get book
 
 	
 function displayBook(foundBook){
@@ -199,6 +195,7 @@ function displayBook(foundBook){
 	let pages = document.createElement('span');
 	pages.textContent = 'Page Count: ' + foundBook.pages;
 	detailDiv.appendChild(pages);
+	detailDiv.appendChild(document.createElement('br'));
 	detailDiv.appendChild(document.createElement('br'));
 	
 	
@@ -264,7 +261,6 @@ function hideDetails() {
 function toggleAddForm() {
 		let formDiv = document.getElementById('addBookDiv');
 		let currentDisplayStatus = formDiv.style.display;
-		//console.log(formDiv.style);
 		if (currentDisplayStatus === 'block') {
 			formDiv.style.display = 'none';
 		} else if (currentDisplayStatus === 'none') {
@@ -274,7 +270,6 @@ function toggleAddForm() {
 function toggleEditForm() {
 		let formDiv = document.getElementById('editDiv');
 		let currentDisplayStatus = formDiv.style.display;
-		//console.log(formDiv.style);
 		if (currentDisplayStatus === 'block') {
 			formDiv.style.display = 'none';
 		} else if (currentDisplayStatus === 'none') {
@@ -297,9 +292,7 @@ function populateEditForm(book) {
  function createBook(newBook) {
 	
 	let xhr = new XMLHttpRequest();
-			
 	xhr.open('POST', 'api/books');
-					
 	xhr.onreadystatechange = function() {
 		if(xhr.readyState === xhr.DONE) {
 			if(xhr.status === 200 || xhr.status ===201) {
@@ -315,7 +308,6 @@ function populateEditForm(book) {
 			}
 		};
 	xhr.setRequestHeader("Content-type", "application/json"); // Specify JSON request body	
-		
 			
 	let newBookJson = JSON.stringify(newBook);		
 			
@@ -323,9 +315,9 @@ function populateEditForm(book) {
 };	
 
 function editBook(bookId, editedBook) {
+
 	let xhr = new XMLHttpRequest();
 	xhr.open('PUT','api/books/' + bookId);
-	
 	xhr.onreadystatechange = function() {
 			if(xhr.readyState === xhr.DONE) {
 				if(xhr.status === 200 || xhr.status ===201) {
@@ -347,10 +339,10 @@ function editBook(bookId, editedBook) {
 };
 
 function deleteBook(bookId) {
+	
 	let xhr = new XMLHttpRequest();
-		xhr.open('DELETE','api/books/' + bookId);
-		
-		xhr.onreadystatechange = function() {
+	xhr.open('DELETE','api/books/' + bookId);
+	xhr.onreadystatechange = function() {
 				if(xhr.readyState === xhr.DONE) {
 					if(xhr.status === 200 || xhr.status === 204) {
 							console.log('Book deleted: ', xhr.responseText);
